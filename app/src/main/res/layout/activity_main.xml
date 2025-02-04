@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    tools:context=".MainActivity"
+    android:padding="20dp">
+
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="218dp"
+        android:layout_height="189dp"
+        android:layout_marginTop="14dp"
+        app:srcCompat="@mipmap/chino_icon" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="305dp"
+        android:layout_height="wrap_content"
+        android:text="Bienvenido"
+        android:textAlignment="center"
+        android:textColor="#3B4550"
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textViewSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Accede o crea una nueva cuenta"
+        android:textColor="#3B4550"
+        android:textSize="16sp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputEmailLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Correo electrónico" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputPasswordLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:hint="Contraseña"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/buttonLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:backgroundTint="#D63D58"
+            android:onClick="onLogin"
+            android:text="ACCEDER"
+            tools:ignore="OnClick" />
+
+        <TextView
+            android:id="@+id/textViewForgotPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif"
+            android:onClick="onResetPassword"
+            android:text="¿Has olvidado tu contraseña?"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="center"
+            android:text="---------------------------------- o ----------------------------------"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/buttonLoginWithGoogle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="#F0B2BE"
+            android:drawableLeft="@drawable/logo_google"
+            android:drawablePadding="8dp"
+            android:layoutDirection="ltr"
+            android:onClick="onSigInWithGoogle"
+            android:text="Iniciar sesión con Google"
+            android:textColor="#000000" />
+
+        <CheckBox
+            android:id="@+id/checkBoxSessionStarted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="Mantener sesión iniciada"
+            android:textSize="16sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+</LinearLayout>
