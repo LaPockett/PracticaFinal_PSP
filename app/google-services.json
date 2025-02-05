@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "584204093720",
+    "project_id": "practicapsp-64f03",
+    "storage_bucket": "practicapsp-64f03.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:584204093720:android:f00f20203915ffa0aff66d",
+        "android_client_info": {
+          "package_name": "com.example.practicafinal_psp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1YuMbhOpumPGnIsItqmd1oj8Enj_PYb8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

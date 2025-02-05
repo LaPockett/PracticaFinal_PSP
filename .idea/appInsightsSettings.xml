@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.example.practicafinal_psp" />
+                  <option name="mobileSdkAppId" value="1:584204093720:android:f00f20203915ffa0aff66d" />
+                  <option name="projectId" value="practicapsp-64f03" />
+                  <option name="projectNumber" value="584204093720" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

@@ -10,13 +10,12 @@
     tools:context=".MainActivity"
     android:padding="20dp">
 
-
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="218dp"
         android:layout_height="189dp"
-        android:layout_marginTop="14dp"
-        app:srcCompat="@mipmap/chino_icon" />
+        android:layout_marginTop="20dp"
+        android:src="@mipmap/chino_icon" />
 
     <TextView
         android:id="@+id/textView3"
@@ -115,6 +114,4 @@
             android:text="Mantener sesión iniciada"
             android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
-
-
 </LinearLayout>

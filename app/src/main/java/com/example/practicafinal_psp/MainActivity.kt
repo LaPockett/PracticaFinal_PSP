@@ -1,6 +1,9 @@
 package com.example.practicafinal_psp
 
+import android.content.ContentValues.TAG
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
@@ -9,9 +12,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.practicafinal_psp.databinding.ActivityMainBinding
+import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
+    private lateinit var firebaseAuth: FirebaseAuth
+
     lateinit var textInputEmailLogin: EditText
     lateinit var textInputPasswordLogin: EditText
 
@@ -20,6 +29,13 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
 
         super.onCreate(savedInstanceState)
+
+        try {
+            FirebaseApp.initializeApp(this)
+            firebaseAuth = FirebaseAuth.getInstance()
+        } catch (e: Exception) {
+            Log.e("FirebaseError", "Error al inicializar FirebaseAuth", e)
+        }
         enableEdgeToEdge()
         //setContentView(R.layout.activity_main)
         setContentView(binding.root)
@@ -28,23 +44,35 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
         textInputEmailLogin = binding.textInputEmailLogin
         textInputPasswordLogin = binding.textInputPasswordLogin
-
     }
 
     fun onLogin(view: View) {
-        val email = textInputEmailLogin.text.toString()
-        val contraseña = textInputPasswordLogin.text.toString()
-
-        if (email.isNotEmpty()&&contraseña.isNotEmpty()) {
-            //Hasheamos la contraseña
-
+        val email:String = binding.textInputEmailLogin.text.toString().trim()
+        val password : String = binding.textInputPasswordLogin.text.toString().trim()
+        Log.i(TAG, "Email ${email}, Password ${password}")
+        if (email.isNotEmpty()&&password.isNotEmpty()) {
+            firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    val intent = Intent(this, HomeActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    it.exception?.let { exception ->
+                        when (exception) {
+                            is FirebaseAuthUserCollisionException ->
+                                Toast.makeText(this, "El correo ya está registrado", Toast.LENGTH_SHORT).show()
+                            is FirebaseAuthInvalidCredentialsException ->
+                                Toast.makeText(this, "La contraseña no es correcta", Toast.LENGTH_SHORT).show()
+                            else ->
+                                Toast.makeText(this, exception.localizedMessage, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            }
 
         }else {
-            Toast.makeText(this, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,"¡No se permitén campos vacíos!", Toast.LENGTH_SHORT).show()
         }
-
     }
 }
