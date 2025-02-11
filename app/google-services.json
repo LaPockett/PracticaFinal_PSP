@@ -12,7 +12,20 @@
           "package_name": "com.example.practicafinal_psp"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "584204093720-fqnev0mle2spglam4kl62sbjagchjsv8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.practicafinal_psp",
+            "certificate_hash": "370272753d0b79230259e3cf9fe4fa9496a9ec49"
+          }
+        },
+        {
+          "client_id": "584204093720-pd9tvh5hhrhmhdmsfa4l83tucnieb95p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyA1YuMbhOpumPGnIsItqmd1oj8Enj_PYb8"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "584204093720-pd9tvh5hhrhmhdmsfa4l83tucnieb95p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

@@ -37,6 +37,15 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
+    android {
+        packagingOptions {
+            exclude ("META-INF/INDEX.LIST")
+            exclude ("META-INF/io.netty.versions.properties")
+            exclude ("META-INF/DEPENDENCIES")
+        }
+    }
+
 }
 
 dependencies {
@@ -82,16 +91,18 @@ dependencies {
     //implementation(libs.androidx.room.paging)
 
     // Import the BoM for the Firebase platform
-    implementation(platform(libs.firebase.bom.v3280))
+    implementation(platform(libs.firebase.bom))
 
     // Add the dependency for the Firebase Authentication library
     // When using the BoM, you don't specify versions in Firebase library dependencies
-    implementation(libs.google.firebase.auth)
+    implementation(libs.firebase.auth)
 
     // Also add the dependency for the Google Play services library and specify its version
     implementation(libs.play.services.auth)
-    implementation(libs.firebase.auth.ktx)
+    implementation(libs.google.firebase.auth.ktx)
     implementation(libs.androidx.credentials)
     implementation(libs.androidx.credentials.services)
     implementation(libs.googleid)
+    implementation(libs.translate)
+
 }

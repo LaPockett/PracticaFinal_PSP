@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var textInputEmailLogin: EditText
     lateinit var textInputPasswordLogin: EditText
+    val api:String ="AIzaSyA1YuMbhOpumPGnIsItqmd1oj8Enj_PYb8"
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
