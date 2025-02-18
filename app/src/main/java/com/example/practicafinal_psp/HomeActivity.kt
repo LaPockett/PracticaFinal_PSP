@@ -29,6 +29,7 @@ class HomeActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.juego -> fragmentos(Juego())
                 R.id.traductor -> fragmentos(Traductor())
+                R.id.conexion -> fragmentos(Conexion())
             }
             true
         }

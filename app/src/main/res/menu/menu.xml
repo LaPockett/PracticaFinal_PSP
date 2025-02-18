@@ -14,4 +14,10 @@
         android:icon="@drawable/ic_translate"
         app:showAsAction="ifRoom"
         />
+    <item
+        android:title=""
+        android:id="@+id/conexion"
+        android:icon="@drawable/ic_mensaje"
+        app:showAsAction="ifRoom"
+        />
 </menu>
