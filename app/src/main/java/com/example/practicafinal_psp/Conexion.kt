@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import com.example.practicafinal_psp.databinding.FragmentConexionBinding
+import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -37,8 +38,13 @@ class Conexion : Fragment() {
 
     private lateinit var binding: FragmentConexionBinding
     private lateinit var textViewCambiante: TextView
-    private lateinit var buttonEnviar: Button
+    private lateinit var buttonIniciarGame: Button
+    private lateinit var buttonEnviarJuego: Button
+    private lateinit var textInputRespuesta: TextInputEditText
     private val coroutineScope = CoroutineScope(Dispatchers.Main)
+    private var cliente: SSLSocket? = null
+    private var flujoEntrada: DataInputStream? = null
+    private var flujoSalida: DataOutputStream? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,66 +67,86 @@ class Conexion : Fragment() {
 
         // Inicializamos las variables
         textViewCambiante = binding.textViewCambiante
-        buttonEnviar = binding.buttonEnviar
+        buttonIniciarGame = binding.buttonIniciarGame
+        buttonEnviarJuego = binding.buttonEnviarJuego
+        textInputRespuesta = binding.textInputRespuesta
 
-        buttonEnviar.setOnClickListener {
-            enviarMensaje()
+        // Se deshabilita el botón de enviar respuesta al servidor hasta que inicie el juego
+        buttonEnviarJuego.isEnabled = false
+
+        buttonIniciarGame.setOnClickListener {
+            iniciarJuego()
+        }
+
+        buttonEnviarJuego.setOnClickListener {
+            enviarRespuesta()
         }
     }
 
     @SuppressLint("SetTextI18n")
-    private fun enviarMensaje() {
+    private fun enviarRespuesta() {
         coroutineScope.launch(Dispatchers.IO) {
-            var cliente: SSLSocket? = null
-            var flujoEntrada: DataInputStream? = null
-            var flujoSalida: DataOutputStream? = null
 
             try {
-                val host = "192.168.1.23" //Cambiar IP ajústandola a la de tu máquina
+
+                val traduccionChino = textInputRespuesta.text.toString()
+                flujoSalida?.writeUTF(traduccionChino)
+                flujoSalida?.flush()
+
+                // Queremos recibir el resultado del servidor
+                val resultado = flujoEntrada?.readUTF()
+                launch(Dispatchers.Main){
+                    textViewCambiante.text = resultado
+                    textInputRespuesta.text?.clear()
+                }
+
+            }catch (e: SocketException) {
+                launch(Dispatchers.Main) {
+                    textViewCambiante.text = "Error de conexión: ${e.message}"
+                }
+            }catch (e:Exception){
+                e.printStackTrace()
+                launch(Dispatchers.Main){
+                    textViewCambiante.text = "Error al enviar la respuesta: ${e.message}"
+                }
+
+            }
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun iniciarJuego() {
+        coroutineScope.launch(Dispatchers.IO) {
+            try {
+                val host = "pspdian.ddns.net" //Cambiar IP ajústandola a la de tu máquina
                 val puerto = 6000
 
                 val sslSocketFactory = createSSLSocketFactory(requireContext())
                 cliente = sslSocketFactory.createSocket(host, puerto) as SSLSocket
-                cliente.soTimeout = 10000
+                cliente!!.soTimeout = 10000
 
-                try {
-                    cliente.startHandshake()
-                    Log.d("SSLClient", "Handshake SSL completado correctamente")
-                }catch(e:Exception){
-                    launch(Dispatchers.Main) {
-                        textViewCambiante.text = "Error en el handshake SSL/TLS: ${e.message}"
-                    }
-                    return@launch
-                }
-                flujoSalida = DataOutputStream(cliente.getOutputStream())
-                flujoEntrada = DataInputStream(cliente.getInputStream())
+                flujoSalida = DataOutputStream(cliente!!.getOutputStream())
+                flujoEntrada = DataInputStream(cliente!!.getInputStream())
 
-                flujoSalida.writeUTF("Saludos al SERVIDOR DE DIAN desde el CLIENTE")
-                flujoSalida.flush()
-                Log.d("SSLClient", "Mensaje enviado al servidor, esperando respuesta...")
+                flujoSalida!!.writeUTF("Iniciar juego")
+                flujoSalida!!.flush()
 
-                try {
-                    val serverResponse = flujoEntrada.readUTF()
-                    launch(Dispatchers.Main) {
-                        textViewCambiante.text = serverResponse
-                        Log.d("SSLClient", "Respuesta recibida: $serverResponse")
-                    }
-                }catch (e:Exception){
-                    Log.e("SSLClient", "Error al leer la respuesta del servidor: ${e.message}", e)
+                val palabraSpanish = flujoEntrada!!.readUTF()
+
+                launch(Dispatchers.Main){
+                    textViewCambiante.text = "Traduce la palabra: $palabraSpanish"
+                    buttonEnviarJuego.isEnabled = true // Habilitamos el botón de enviar respuesta
                 }
 
-            }catch (e:Exception){
+            }catch (e:SocketException){
+                launch(Dispatchers.Main){
+                    textViewCambiante.text = "Error de conexión: ${e.message}"
+                }
+            }
+            catch (e:Exception){
                 e.printStackTrace()
-            } finally {
-                try {
-                    flujoEntrada?.close()
-                    flujoSalida?.close()
-                    cliente?.close()
-
-                }catch (e:SocketException){
-
-                }catch (e:Exception){
-                    Log.e("SSLClient", "Error inesperado al cerrar el socket: ${e.message}", e)
+                launch(Dispatchers.Main){
+                    textViewCambiante.text = "Error al iniciar el juego: ${e.message}"
                 }
             }
         }
@@ -160,6 +186,14 @@ class Conexion : Fragment() {
      */
     override fun onDestroy() {
         super.onDestroy()
+        try {
+            flujoEntrada?.close()
+            flujoSalida?.close()
+            cliente?.close()
+
+        }catch (e:Exception){
+            Log.e("SSLClient", "Error al cerrar el socket: ${e.message}", e)
+        }
         coroutineScope.cancel()
     }
 }

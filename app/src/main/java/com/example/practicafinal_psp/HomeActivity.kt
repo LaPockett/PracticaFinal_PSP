@@ -25,9 +25,12 @@ class HomeActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        if (savedInstanceState == null){
+            fragmentos(Traductor())
+
+        }
         binding.menuNav.setOnItemSelectedListener {
             when (it.itemId) {
-                R.id.juego -> fragmentos(Juego())
                 R.id.traductor -> fragmentos(Traductor())
                 R.id.conexion -> fragmentos(Conexion())
             }

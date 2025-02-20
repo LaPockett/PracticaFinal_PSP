@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <item
-        android:title=""
-        android:id="@+id/juego"
-        android:icon="@drawable/ic_videogam"
-        app:showAsAction="ifRoom"
-        />
     <item
         android:title=""
         android:id="@+id/traductor"
@@ -17,7 +10,7 @@
     <item
         android:title=""
         android:id="@+id/conexion"
-        android:icon="@drawable/ic_mensaje"
+        android:icon="@drawable/ic_videogam"
         app:showAsAction="ifRoom"
         />
 </menu>

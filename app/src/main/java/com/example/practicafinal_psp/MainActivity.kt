@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -24,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var textInputEmailLogin: EditText
     lateinit var textInputPasswordLogin: EditText
     val api:String ="AIzaSyA1YuMbhOpumPGnIsItqmd1oj8Enj_PYb8"
+    lateinit var textViewSignUp: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -47,6 +49,12 @@ class MainActivity : AppCompatActivity() {
         }
         textInputEmailLogin = binding.textInputEmailLogin
         textInputPasswordLogin = binding.textInputPasswordLogin
+        textViewSignUp = binding.textViewSignUp
+
+        textViewSignUp.setOnClickListener {
+            val intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     fun onLogin(view: View) {
@@ -76,4 +84,15 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this,"¡No se permitén campos vacíos!", Toast.LENGTH_SHORT).show()
         }
     }
+
+    override fun onStart() {
+        super.onStart()
+        val usuario = firebaseAuth.currentUser
+        if (usuario!=null) {
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+    }
+
 }

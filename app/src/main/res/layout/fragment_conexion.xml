@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FACBCB"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@mipmap/fondo_gatos"
     tools:context=".Conexion">
 
     <LinearLayout
@@ -12,38 +13,79 @@
         android:orientation="vertical"
         android:padding="15dp">
 
-        <!-- Título centrado arriba -->
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Conexión"
-            android:textStyle="bold"
-            android:textSize="30sp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="#D43D57"
             android:gravity="center"
-            android:layout_marginTop="20dp"/>
+            android:text="Juego"
+            android:textColor="#2A331D"
+            android:textSize="30sp"
+            android:textStyle="bold" />
 
-        <!-- Contenedor centrado -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonIniciarGame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="40dp"
+            app:backgroundTint="#D63D58"
+            app:strokeColor="@color/black"
+            app:strokeWidth="4dp"
+            android:text="Genera una palabra"/>
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="151dp"
+            android:layout_height="122dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="14dp"
+            app:srcCompat="@mipmap/emperador" />
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:elevation="8dp"
             android:gravity="center"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textViewCambiante"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Esperando respuesta del servidor..."
-                android:textSize="22sp" />
-
-            <Button
-                android:id="@+id/buttonEnviar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Enviar mensaje al servidor"
-                android:layout_marginTop="20dp"/>
+                android:layout_gravity="center"
+                android:paddingTop="15dp"
+                android:text="Traduzca la palabra..."
+                android:textSize="22sp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="18dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputRespuesta"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Ingresa la traducción en chino" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonEnviarJuego"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                app:backgroundTint="#D63D58"
+                app:strokeColor="@color/black"
+                app:strokeWidth="4dp"
+                android:text="Enviar respuesta"/>
         </LinearLayout>
 
     </LinearLayout>
