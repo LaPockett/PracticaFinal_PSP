@@ -1,6 +1,7 @@
 package com.example.practicafinal_psp
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -123,7 +124,8 @@ class Traductor : Fragment() {
         translator = Translation.getClient(opciones)
 
         translator?.downloadModelIfNeeded()?.addOnSuccessListener {
-            Toast.makeText(requireContext(), "Modelo descargado", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(requireContext(), "Modelo descargado", Toast.LENGTH_SHORT).show()
+            Log.i("Traductor", "Modelo descargado")
             CoroutineScope(Dispatchers.IO).launch {
                 try {
                     val resultado = translator?.translate(texto)?.await()
@@ -142,6 +144,8 @@ class Traductor : Fragment() {
             Toast.makeText(requireContext(), "Error al descargar el modelo", Toast.LENGTH_SHORT).show()
         }
     }
+
+
     override fun onDestroyView() {
         super.onDestroyView()
         translator?.close()

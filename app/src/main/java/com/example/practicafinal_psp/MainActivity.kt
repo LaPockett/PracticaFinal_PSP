@@ -24,7 +24,8 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var textInputEmailLogin: EditText
     lateinit var textInputPasswordLogin: EditText
-    val api:String ="AIzaSyA1YuMbhOpumPGnIsItqmd1oj8Enj_PYb8"
+    //val api:String ="AIzaSyA1YuMbhOpumPGnIsItqmd1oj8Enj_PYb8"
+
     lateinit var textViewSignUp: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,14 +86,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        val usuario = firebaseAuth.currentUser
-        if (usuario!=null) {
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-    }
+
 
 }

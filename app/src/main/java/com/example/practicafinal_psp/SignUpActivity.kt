@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -28,6 +29,7 @@ class SignUpActivity : AppCompatActivity() {
     lateinit var textInputEmail: EditText
     lateinit var textInputPassword: EditText
     lateinit var textInputPassword2: EditText
+    lateinit var textViewVolverLogin: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -35,7 +37,7 @@ class SignUpActivity : AppCompatActivity() {
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_sign_up)
+        //setContentView(R.layout.activity_sign_up)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -46,6 +48,12 @@ class SignUpActivity : AppCompatActivity() {
         textInputEmail = binding.textInputEmailSignUp
         textInputPassword = binding.textInputPasswordSignUp
         textInputPassword2 = binding.textInputPasswordAgain
+
+        textViewVolverLogin = binding.textViewVolverLogin
+        textViewVolverLogin.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 
@@ -81,4 +89,5 @@ class SignUpActivity : AppCompatActivity() {
         }
 
     }
+
 }
